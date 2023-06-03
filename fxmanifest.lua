@@ -8,3 +8,4 @@ fxdk_watch_command 'yarn' {'watch'}
 fxdk_build_command 'yarn' {'build'}
 
 server_script 'dist/server.js'
+server_only 'yes'
