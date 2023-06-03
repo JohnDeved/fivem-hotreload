@@ -1,5 +1,6 @@
 import fsp from "fs/promises"
 import { spawn } from 'child_process'
+import config from "../config.json"
 
 type IResource = {
   name: string
@@ -21,8 +22,9 @@ getAllResources().then(resources => {
 })
 
 function restartResource (resourceName: string, out: string) {
-  if (!out.includes("Rebuild succeeded")) return
-  ExecuteCommand(`ensure ${resourceName}`)
+  if (config.ensureTriggers.some(trigger => out.includes(trigger))) {
+    ExecuteCommand(`ensure ${resourceName}`)
+  }
 }
 
 async function getAllResources () {
